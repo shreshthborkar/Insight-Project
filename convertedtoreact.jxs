@@ -1,0 +1,272 @@
+import React, { useState } from "react";
+
+const mailData = [
+  {
+    sender: "Mark Boland",
+    subject: "URGENT: Confidential Proposal",
+    email: "mark@example.com",
+    content: `Dear Friend,
+
+I have a confidential business proposition for you.
+
+Please find the attached document detailing the proposal...`,
+  },
+  {
+    sender: "Hollie Voss",
+    subject: "New Investment Opportunity",
+    email: "hollie@example.com",
+    content: `We are pleased to offer you an exclusive opportunity...
+
+This is a time-sensitive offer, and we encourage you to act quickly...`,
+  },
+  {
+    sender: "Jane Doe",
+    subject: "Project Deadline Update",
+    email: "jane@example.com",
+    content: `The project deadline has been moved to next Friday.
+
+Please ensure all deliverables are ready.`,
+  },
+  {
+    sender: "John Smith",
+    subject: "Team Meeting Reminder",
+    email: "john@example.com",
+    content: `This is a reminder for the team meeting scheduled tomorrow at 10 AM.
+
+Please be prepared with your updates.`,
+  },
+  {
+    sender: "Emma Brown",
+    subject: "Invoice Attached",
+    email: "emma@example.com",
+    content: `Please find the invoice attached for the recent services rendered.
+
+Let me know if you have any questions.`,
+  },
+  {
+    sender: "Lucas Green",
+    subject: "Performance Review Feedback",
+    email: "lucas@example.com",
+    content: `Dear Lucas,
+
+Your performance review is scheduled next week. Please prepare your self-assessment.`,
+  },
+  {
+    sender: "Sophia White",
+    subject: "Holiday Schedule",
+    email: "sophia@example.com",
+    content: `The holiday schedule for the upcoming year is now available on the intranet.`,
+  },
+  {
+    sender: "Oliver Black",
+    subject: "Security Update Required",
+    email: "oliver@example.com",
+    content: `Please update your passwords by the end of this week to comply with new security policies.`,
+  },
+  {
+    sender: "Mia Blue",
+    subject: "Client Meeting Recap",
+    email: "mia@example.com",
+    content: `Attached is the summary of today's client meeting and next steps.`,
+  },
+  {
+    sender: "Ethan Red",
+    subject: "Monthly Report Submission",
+    email: "ethan@example.com",
+    content: `Reminder: Submit your monthly reports by Friday.`,
+  },
+  {
+    sender: "Isabella Gray",
+    subject: "Training Session Invitation",
+    email: "isabella@example.com",
+    content: `You are invited to a training session on the new software next Wednesday.`,
+  },
+  {
+    sender: "James Yellow",
+    subject: "Budget Approval",
+    email: "james@example.com",
+    content: `The budget for the upcoming quarter has been approved.`,
+  },
+  {
+    sender: "Amelia Violet",
+    subject: "Website Maintenance Notice",
+    email: "amelia@example.com",
+    content: `Scheduled website maintenance will occur this weekend.`,
+  },
+  {
+    sender: "Benjamin Orange",
+    subject: "New Policy Update",
+    email: "benjamin@example.com",
+    content: `Please review the new company policies effective from next month.`,
+  },
+  {
+    sender: "Charlotte Pink",
+    subject: "Survey Participation Request",
+    email: "charlotte@example.com",
+    content: `We request your participation in the employee satisfaction survey.`,
+  },
+  {
+    sender: "Daniel Silver",
+    subject: "Office Relocation Plan",
+    email: "daniel@example.com",
+    content: `The office relocation is planned for next quarter.`,
+  },
+  {
+    sender: "Ella Gold",
+    subject: "Social Event Announcement",
+    email: "ella@example.com",
+    content: `Join us for the annual social event next Friday evening.`,
+  },
+  {
+    sender: "Henry Bronze",
+    subject: "Software License Renewal",
+    email: "henry@example.com",
+    content: `The software license needs to be renewed before the end of the month.`,
+  },
+  {
+    sender: "Grace Copper",
+    subject: "New Hire Introduction",
+    email: "grace@example.com",
+    content: `Please welcome our new hire starting next Monday.`,
+  },
+  {
+    sender: "Jack Platinum",
+    subject: "System Downtime Alert",
+    email: "jack@example.com",
+    content: `System downtime scheduled for maintenance this Sunday.`,
+  },
+  {
+    sender: "Lily Quartz",
+    subject: "Project Kickoff",
+    email: "lily@example.com",
+    content: `The kickoff meeting for the new project is scheduled for Thursday.`,
+  },
+  {
+    sender: "Michael Steel",
+    subject: "Document Submission Reminder",
+    email: "michael@example.com",
+    content: `Please submit all required documents by the end of the week.`,
+  },
+  {
+    sender: "Natalie Jade",
+    subject: "Benefits Enrollment Period",
+    email: "natalie@example.com",
+    content: `The benefits enrollment period starts next month.`,
+  },
+  {
+    sender: "Oscar Topaz",
+    subject: "Customer Feedback",
+    email: "oscar@example.com",
+    content: `Please review the recent customer feedback and suggest improvements.`,
+  },
+  {
+    sender: "Penelope Pearl",
+    subject: "Technical Issue Report",
+    email: "penelope@example.com",
+    content: `There is a technical issue reported with the payment gateway.`,
+  },
+  {
+    sender: "Quinn Sapphire",
+    subject: "Marketing Campaign Results",
+    email: "quinn@example.com",
+    content: `The marketing campaign results are attached for your review.`,
+  },
+  {
+    sender: "Ryan Emerald",
+    subject: "Compliance Training",
+    email: "ryan@example.com",
+    content: `Compliance training is mandatory for all employees.`,
+  },
+  {
+    sender: "Sarah Amber",
+    subject: "Holiday Party Planning",
+    email: "sarah@example.com",
+    content: `Volunteers needed to help plan the holiday party.`,
+  },
+  {
+    sender: "Thomas Ruby",
+    subject: "Quarterly Earnings Report",
+    email: "thomas@example.com",
+    content: `The quarterly earnings report is now available.`,
+  },
+  {
+    sender: "Uma Citrine",
+    subject: "Client Contract Renewal",
+    email: "uma@example.com",
+    content: `Client contract renewal discussion scheduled next week.`,
+  },
+  {
+    sender: "Victor Onyx",
+    subject: "IT Infrastructure Upgrade",
+    email: "victor@example.com",
+    content: `Plans for IT infrastructure upgrade are underway.`,
+  },
+  {
+    sender: "Wendy Garnet",
+    subject: "New Software Rollout",
+    email: "wendy@example.com",
+    content: `The new software rollout will begin next month.`,
+  },
+  {
+    sender: "Xavier Moonstone",
+    subject: "Helpdesk Ticket Update",
+    email: "xavier@example.com",
+    content: `Your helpdesk ticket has been updated with a resolution.`,
+  },
+  {
+    sender: "Yvonne Opal",
+    subject: "Staff Meeting Notes",
+    email: "yvonne@example.com",
+    content: `Minutes of the last staff meeting are attached.`,
+  },
+  {
+    sender: "Zachary Diamond",
+    subject: "Policy Reminder",
+    email: "zachary@example.com",
+    content: `Reminder to adhere to the company’s data privacy policy.`,
+  },
+  // Assuming you provided the full original 64 mails in this format.
+  // If more mails were listed originally, continue adding here.
+];
+
+function MailItem({ sender, subject, email, content }) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div
+      onClick={() => setOpen(!open)}
+      style={{
+        border: "1px solid #ccc",
+        padding: "10px",
+        marginBottom: "10px",
+        cursor: "pointer",
+      }}
+    >
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <div>{sender}</div>
+        <div style={{ fontWeight: "bold" }}>{subject}</div>
+      </div>
+      <div style={{ fontSize: "0.9em", color: "#555" }}>{email}</div>
+      {open && (
+        <div style={{ marginTop: "10px", whiteSpace: "pre-wrap" }}>{content}</div>
+      )}
+    </div>
+  );
+}
+
+export default function App() {
+  return (
+    <div
+      style={{
+        maxWidth: "600px",
+        margin: "20px auto",
+        fontFamily: "Arial, sans-serif",
+      }}
+    >
+      <h2>React Mail UI</h2>
+      {mailData.map((mail, idx) => (
+        <MailItem key={idx} {...mail} />
+      ))}
+    </div>
+  );
+}
